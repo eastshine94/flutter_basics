@@ -16,24 +16,10 @@ void main() {
   print(bts.firstMember);
 }
 
-/**
- * Idol Class
- * name(이름) - 변수
- * members(멤버들) - 변수
- * sayHello (인사) - 함수
- * introduce (멤버 소개) - 함수
- * 
- */
-
 class Idol {
-  // immutable 프로그래밍 => 처음 선언된 값을 바꿀 수 없도록
   String name;
   List<String> members;
 
-  //constructor(생성자)
-  // Idol(String name, List<String> members)
-  //     : this.name = name,
-  //       this.members = members;
   Idol(this.name, this.members);
   Idol.fromList(List values)
       : this.members = values[0],
