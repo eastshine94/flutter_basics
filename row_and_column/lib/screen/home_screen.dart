@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
         color: Colors.black,
         // width: MediaQuery.of(context).size.width,
         // height: MediaQuery.of(context).size.height,
-        child: Row(
+        child: Column(
           /**
            * mainAxisAlignment - 주축 정렬
            * start: 시작
@@ -36,27 +36,42 @@ class HomeScreen extends StatelessWidget {
            * max: 최대
            * min: 최소
            */
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Container(
-              color: Colors.red,
-              width: 50.0,
-              height: 50.0,
+            /**
+             * Expanded: 남아있는 공간을 나눠먹음
+             * - flex: 나눠먹는 비율
+             * Flexible: 가진 영역 중 설정한 높이, 넓이만큼만 가지고 남아있는 공간을 버림
+             */
+            Flexible(
+              flex: 2,
+              child: Container(
+                color: Colors.red,
+                width: 50.0,
+                height: 50.0,
+              ),
             ),
-            Container(
-              color: Colors.orange,
-              width: 50.0,
-              height: 50.0,
+            Expanded(
+              flex: 3,
+              child: Container(
+                color: Colors.orange,
+                width: 50.0,
+                height: 50.0,
+              ),
             ),
-            Container(
-              color: Colors.pink,
-              width: 50.0,
-              height: 50.0,
+            Expanded(
+              child: Container(
+                color: Colors.pink,
+                width: 50.0,
+                height: 50.0,
+              ),
             ),
-            Container(
-              color: Colors.green,
-              width: 50.0,
-              height: 50.0,
+            Expanded(
+              child: Container(
+                color: Colors.green,
+                width: 50.0,
+                height: 50.0,
+              ),
             )
           ],
         ),
