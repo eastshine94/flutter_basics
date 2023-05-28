@@ -9,11 +9,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String homeUrl = 'https://youtube.com';
   WebViewController? _webViewController;
   @override
   void initState() {
     _webViewController = WebViewController()
-      ..loadRequest(Uri.parse('https://youtube.com'))
+      ..loadRequest(Uri.parse(homeUrl))
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
     super.initState();
   }
@@ -25,6 +26,16 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.orange,
         title: const Text("Title"),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                if (_webViewController == null) {
+                  return;
+                }
+                _webViewController!.loadRequest(Uri.parse(homeUrl));
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       body: SafeArea(
           bottom: false, child: WebViewWidget(controller: _webViewController!)),
