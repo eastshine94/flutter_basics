@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+final homeUrl = Uri.parse('https://youtube.com');
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+class HomeScreen extends StatelessWidget {
+  final WebViewController _webViewController = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..loadRequest(homeUrl);
 
-class _HomeScreenState extends State<HomeScreen> {
-  String homeUrl = 'https://youtube.com';
-  WebViewController? _webViewController;
-  @override
-  void initState() {
-    _webViewController = WebViewController()
-      ..loadRequest(Uri.parse(homeUrl))
-      ..setJavaScriptMode(JavaScriptMode.unrestricted);
-    super.initState();
-  }
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +20,13 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                if (_webViewController == null) {
-                  return;
-                }
-                _webViewController!.loadRequest(Uri.parse(homeUrl));
+                _webViewController.loadRequest(homeUrl);
               },
               icon: const Icon(Icons.home))
         ],
       ),
       body: SafeArea(
-          bottom: false, child: WebViewWidget(controller: _webViewController!)),
+          bottom: false, child: WebViewWidget(controller: _webViewController)),
     );
   }
 }
