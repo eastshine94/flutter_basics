@@ -65,24 +65,24 @@ class _TopPart extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
     final now = DateTime.now();
     return Expanded(
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        const Text("U&I",
-            style: TextStyle(
-                color: Colors.white, fontFamily: 'parisienne', fontSize: 80.0)),
+        Text(
+          "U&I",
+          style: theme.headline1,
+        ),
         Column(
           children: [
-            const Text(
+            Text(
               '우리 처음 만난 날',
-              style: TextStyle(
-                  color: Colors.white, fontFamily: 'sunflower', fontSize: 30.0),
+              style: theme.bodyText1,
             ),
             Text(
               '${selectedDate.year}.${selectedDate.month}.${selectedDate.day}',
-              style: const TextStyle(
-                  color: Colors.white, fontFamily: 'sunflower', fontSize: 20.0),
+              style: theme.bodyText2,
             )
           ],
         ),
@@ -92,12 +92,7 @@ class _TopPart extends StatelessWidget {
             icon: const Icon(Icons.favorite, color: Colors.red)),
         Text(
           'D+${DateTime(now.year, now.month, now.day).difference(selectedDate).inDays + 1}',
-          style: const TextStyle(
-            color: Colors.white,
-            fontFamily: 'sunflower',
-            fontSize: 50.0,
-            fontWeight: FontWeight.w700,
-          ),
+          style: theme.headline2,
         )
       ]),
     );
