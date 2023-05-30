@@ -37,7 +37,18 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [Text('123'), Text('456'), Text('789')],
+                  children: ['123', '456', '789']
+                      .map((val) => Row(
+                            children: val
+                                .split('')
+                                .map((x) => Image.asset(
+                                      'asset/img/$x.png',
+                                      width: 50.0,
+                                      height: 70.0,
+                                    ))
+                                .toList(),
+                          ))
+                      .toList(),
                 ),
               ),
               SizedBox(
