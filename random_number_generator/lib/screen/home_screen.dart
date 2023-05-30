@@ -38,15 +38,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: ['123', '456', '789']
-                      .map((val) => Row(
-                            children: val
-                                .split('')
-                                .map((x) => Image.asset(
-                                      'asset/img/$x.png',
-                                      width: 50.0,
-                                      height: 70.0,
-                                    ))
-                                .toList(),
+                      .asMap()
+                      .entries
+                      .map((x) => Padding(
+                            padding: EdgeInsets.only(
+                                bottom: x.key == 2 ? 0.0 : 16.0),
+                            child: Row(
+                              children: x.value
+                                  .split('')
+                                  .map((x) => Image.asset(
+                                        'asset/img/$x.png',
+                                        width: 50.0,
+                                        height: 70.0,
+                                      ))
+                                  .toList(),
+                            ),
                           ))
                       .toList(),
                 ),
