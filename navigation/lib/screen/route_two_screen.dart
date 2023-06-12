@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:navigation/layout/main_layout.dart';
+import 'package:navigation/screen/route_three_screen.dart';
 
 class RouteTwoScreen extends StatelessWidget {
   const RouteTwoScreen({Key? key}) : super(key: key);
@@ -21,7 +22,32 @@ class RouteTwoScreen extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pushNamed("/three", arguments: 999);
           },
-          child: const Text("Push named"))
+          child: const Text("Push Named")),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => const RouteThreeScreen()));
+          },
+          child: const Text("Push Replacement")),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed('/three');
+          },
+          child: const Text("Push Replacement Named")),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => const RouteThreeScreen()),
+              (route) => route.settings.name == '/',
+            );
+          },
+          child: const Text("Push And Remove Until")),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/three', ((route) => false));
+          },
+          child: const Text("Push Named And Remove Until")),
     ]);
   }
 }
