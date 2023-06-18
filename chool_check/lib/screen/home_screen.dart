@@ -19,12 +19,22 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: renderAppBar(),
-      body: const Column(
-        children: [
-          _CustomGoogleMap(initialPosition: initialPosition),
-          _ChoolCheckButton(),
-        ],
-      ),
+      body: FutureBuilder(
+          future: checkPermission(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (snapshot.data == '위치 권한이 허가되었습니다') {
+              return const Column(children: [
+                _CustomGoogleMap(initialPosition: initialPosition),
+                _ChoolCheckButton()
+              ]);
+            }
+
+            return Center(child: Text(snapshot.data));
+          }),
     );
   }
 
