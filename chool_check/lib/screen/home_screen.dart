@@ -15,6 +15,15 @@ class _HomeScreenState extends State<HomeScreen> {
   static const CameraPosition initialPosition =
       CameraPosition(target: companyLatLng, zoom: 15);
 
+  static const double distance = 100;
+  static final Circle circle = Circle(
+      circleId: const CircleId('circle'),
+      center: companyLatLng,
+      fillColor: Colors.blue.withOpacity(0.5),
+      radius: distance,
+      strokeColor: Colors.blue,
+      strokeWidth: 1);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
             }
 
             if (snapshot.data == '위치 권한이 허가되었습니다') {
-              return const Column(children: [
-                _CustomGoogleMap(initialPosition: initialPosition),
-                _ChoolCheckButton()
+              return Column(children: [
+                _CustomGoogleMap(
+                    initialPosition: initialPosition, circle: circle),
+                const _ChoolCheckButton()
               ]);
             }
 
@@ -75,7 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class _CustomGoogleMap extends StatelessWidget {
   final CameraPosition initialPosition;
-  const _CustomGoogleMap({required this.initialPosition, Key? key})
+  final Circle circle;
+  const _CustomGoogleMap(
+      {required this.initialPosition, required this.circle, Key? key})
       : super(key: key);
 
   @override
@@ -83,7 +95,12 @@ class _CustomGoogleMap extends StatelessWidget {
     return Expanded(
       flex: 2,
       child: GoogleMap(
-          mapType: MapType.normal, initialCameraPosition: initialPosition),
+        mapType: MapType.normal,
+        initialCameraPosition: initialPosition,
+        myLocationEnabled: true,
+        myLocationButtonEnabled: false,
+        circles: {circle},
+      ),
     );
   }
 }
