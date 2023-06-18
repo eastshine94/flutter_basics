@@ -17,43 +17,88 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.all(8.0),
-      child: FutureBuilder(
-          future: getNumber(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FutureBuilder(
+              future: getNumber(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-            return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    "FutureBuilder",
-                    style: textStyle.copyWith(
-                        fontWeight: FontWeight.w700, fontSize: 20.0),
-                  ),
-                  Text(
-                    "ConState : ${snapshot.connectionState}",
-                    style: textStyle,
-                  ),
-                  Text(
-                    "Data: ${snapshot.data}",
-                    style: textStyle,
-                  ),
-                  Text(
-                    "Error: ${snapshot.error}",
-                    style: textStyle,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        setState(() {});
-                      },
-                      child: const Text('setState'))
-                ]);
-          }),
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "FutureBuilder",
+                        style: textStyle.copyWith(
+                            fontWeight: FontWeight.w700, fontSize: 20.0),
+                      ),
+                      Text(
+                        "ConState : ${snapshot.connectionState}",
+                        style: textStyle,
+                      ),
+                      Text(
+                        "Data: ${snapshot.data}",
+                        style: textStyle,
+                      ),
+                      Text(
+                        "Error: ${snapshot.error}",
+                        style: textStyle,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {});
+                          },
+                          child: const Text('setState'))
+                    ]);
+              }),
+          const SizedBox(
+            height: 50.0,
+          ),
+          StreamBuilder<int>(
+              stream: streamNumbers(),
+              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "StreamBuilder",
+                        style: textStyle.copyWith(
+                            fontWeight: FontWeight.w700, fontSize: 20.0),
+                      ),
+                      Text(
+                        "ConState : ${snapshot.connectionState}",
+                        style: textStyle,
+                      ),
+                      Text(
+                        "Data: ${snapshot.data}",
+                        style: textStyle,
+                      ),
+                      Text(
+                        "Error: ${snapshot.error}",
+                        style: textStyle,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {});
+                          },
+                          child: const Text('setState'))
+                    ]);
+              }),
+        ],
+      ),
     ));
   }
 
@@ -63,5 +108,15 @@ class _HomeScreenState extends State<HomeScreen> {
     final random = Random();
     // throw Exception("에러가 발생했습니다.");
     return random.nextInt(100);
+  }
+
+  Stream<int> streamNumbers() async* {
+    for (int i = 0; i < 10; i++) {
+      await Future.delayed(const Duration(seconds: 1));
+      // if (i == 5) {
+      //   throw Exception('i = 5');
+      // }
+      yield i;
+    }
   }
 }
