@@ -20,8 +20,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget renderVideo() {
-    return CustomVideoPlayer(
-      video: video!,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CustomVideoPlayer(
+          video: video!,
+        ),
+      ],
     );
   }
 
