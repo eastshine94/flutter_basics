@@ -16,6 +16,7 @@ class CustomVideoPlayer extends StatefulWidget {
 class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   VideoPlayerController? videoController;
   Duration currentPosition = const Duration();
+  bool showControls = false;
 
   @override
   void initState() {
@@ -43,22 +44,30 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 
     return AspectRatio(
         aspectRatio: videoController!.value.aspectRatio,
-        child: Stack(
-          children: [
-            VideoPlayer(videoController!),
-            _Controls(
-              onReversePressed: onReversePressed,
-              onPlayPressed: onPlayPressed,
-              onForwardPressed: onForwardPressed,
-              isPlaying: videoController!.value.isPlaying,
-            ),
-            _NewVideo(onPressed: onNewPressed),
-            _SliderBottom(
-              currentPosition: currentPosition,
-              maxPostion: videoController!.value.duration,
-              onSliderChanged: onSliderChanged,
-            )
-          ],
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              showControls = !showControls;
+            });
+          },
+          child: Stack(
+            children: [
+              VideoPlayer(videoController!),
+              if (showControls)
+                _Controls(
+                  onReversePressed: onReversePressed,
+                  onPlayPressed: onPlayPressed,
+                  onForwardPressed: onForwardPressed,
+                  isPlaying: videoController!.value.isPlaying,
+                ),
+              if (showControls) _NewVideo(onPressed: onNewPressed),
+              _SliderBottom(
+                currentPosition: currentPosition,
+                maxPostion: videoController!.value.duration,
+                onSliderChanged: onSliderChanged,
+              )
+            ],
+          ),
         ));
   }
 
@@ -118,8 +127,8 @@ class _Controls extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black.withOpacity(0.5),
+      height: MediaQuery.of(context).size.height,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           renderIconButton(
