@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_widgets/layout/main_layout.dart';
+import 'package:scrollable_widgets/screen/grid_view_screen.dart';
 import 'package:scrollable_widgets/screen/list_view_screen.dart';
 import 'package:scrollable_widgets/screen/single_child_scroll_view_screen.dart';
 
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
         builder: (_) => SingleChildScrollViewScreen(),
         name: "SingleChildScrollViewScreen"),
     ScreenModel(builder: (_) => ListViewScreen(), name: "ListViewScreen"),
+    ScreenModel(builder: (_) => GridViewScreen(), name: "GridViewScreen"),
   ];
 
   HomeScreen({Key? key}) : super(key: key);
