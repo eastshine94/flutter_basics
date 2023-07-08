@@ -9,12 +9,7 @@ class CustomScrollViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        slivers: [
-          const SliverAppBar(
-            title: Text("CustomScrollViewScreen"),
-          ),
-          renderSliverGridBuilder()
-        ],
+        slivers: [renderSliverAppbar(), renderSliverGridBuilder()],
       ),
     );
   }
@@ -28,6 +23,29 @@ class CustomScrollViewScreen extends StatelessWidget {
               color: rainbowColors[e % rainbowColors.length], index: e))
           .toList(),
     ));
+  }
+
+  // AppBar
+  SliverAppBar renderSliverAppbar() {
+    return const SliverAppBar(
+      // 스크롤 했을 때, 리스트의 중간에도 Appbar가 내려오게 할 수 있음.
+      floating: true,
+      // AppBar 상단 완전 고정
+      pinned: false,
+      // 자석 효과(살짝 당겨도 appBar 보임)
+      // floating이 true일 때만 사용 가능
+      snap: true,
+      // 맨 위에서 한계 이상으로 스크롤 했을 때, 남는 공간을 차지
+      stretch: true,
+
+      // 확장된 상태에서 높이
+      expandedHeight: 200,
+      // 접힐 때 높이
+      collapsedHeight: 150,
+      // appBar를 꾸밀 수 있음
+      flexibleSpace: FlexibleSpaceBar(title: Text("FlexibleSpace")),
+      title: Text("CustomScrollViewScreen"),
+    );
   }
 
   // ListView.builder 생성자와 유사함
