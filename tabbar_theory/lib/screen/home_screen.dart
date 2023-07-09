@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabbar_theory/screen/appbar_using_controller.dart';
 import 'package:tabbar_theory/screen/basic_appbar_tabbar_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,7 +20,13 @@ class HomeScreen extends StatelessWidget {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (_) => const BasicAppbarTabbarScreen()));
               },
-              child: const Text('Basic AppBar TabBar Screen'))
+              child: const Text('Basic AppBar TabBar Screen')),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const AppbarUsingController()));
+              },
+              child: const Text('AppBar Using Controller'))
         ]),
       ),
     );
